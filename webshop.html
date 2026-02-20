@@ -2,59 +2,374 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShineCars - Webshop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ShineCars Webshop - Prémium Autóápolás</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* --- IKONOK ÉS KERESŐ PONTOS MÁSOLATA A FŐOLDALRÓL --- */
+        .shop-icons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            order: 2;
+        }
+
+        .cart-icon {
+            order: 1;
+            position: relative;
+            font-size: 1.4rem;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .cart-icon:hover { color: #76ff03; }
+
+        /* A pontos kör alakú számláló design */
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: #76ff03;
+            color: black;
+            font-size: 0.7rem;
+            font-weight: 900;
+            padding: 2px 6px;
+            border-radius: 50%;
+            min-width: 18px;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .search-input {
+            width: 0;
+            opacity: 0;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #76ff03;
+            color: white;
+            padding: 8px 0;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            outline: none;
+        }
+
+        .search-input.active {
+            width: 200px;
+            opacity: 1;
+            padding: 8px 15px;
+            margin-right: 10px;
+        }
+
+        /* --- LOGO ÉS EGYÉB FIXEK --- */
+        .logo-box img {
+            max-height: 80px; 
+            mix-blend-mode: screen;
+            display: block;
+        }
+
+        .shop-hero-logo {
+            max-width: 400px !important; 
+            width: 90%;
+            mix-blend-mode: screen;
+            display: block;
+            margin: 0 auto 10px auto;
+        }
+
+        .qty-btn { background: #444; color: white; border: none; width: 28px; height: 28px; border-radius: 5px; cursor: pointer; font-weight: bold; margin: 0 5px; transition: 0.2s; }
+        .qty-btn:hover { background: #76ff03; color: black; }
+        .qty-display { min-width: 25px; display: inline-block; text-align: center; font-weight: bold; color: white; }
+        .cart-item-row { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #333; padding: 15px 0; }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .cart-content {
+            background: #1a1c1e;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid #76ff03;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .cart-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .btn-outline {
+            background: transparent !important;
+            border: 2px solid #76ff03 !important;
+            color: #76ff03 !important;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .btn-outline:hover { background: #76ff03 !important; color: #000 !important; }
+
+        .btn-lime {
+            background: #76ff03 !important;
+            border: 2px solid #76ff03 !important;
+            color: #000 !important;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .cart-total {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #76ff03;
+            margin-top: 20px;
+            text-align: right;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+        }
+    </style>
 </head>
-<body class="webshop-page">
+<body class="shop-body">
 
     <header>
         <div class="top-nav">
-            <div class="logo-box">
-                <a href="index.html"><img src="logo.png" alt="ShineCars Logo"></a>
-            </div>
-            <nav>
+            <div class="logo-box"><a href="index.html"><img src="shop-logo.png" alt="ShineCars Logo"></a></div>
+            <nav class="main-nav">
                 <ul>
-                    <li><a href="index.html">VISSZA A FŐOLDALRA</a></li>
+                    <li><a href="index.html#about">RÓLUNK</a></li>
+                    <li><a href="index.html#services">SZOLGÁLTATÁSOK</a></li>
+                    <li><a href="webshop.html" class="active">WEBSHOP</a></li>
+                    <li><a href="index.html#contact">KAPCSOLAT</a></li>
                 </ul>
             </nav>
+            <div class="shop-icons">
+                <a href="javascript:void(0)" class="cart-icon" onclick="showCart()">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <div class="search-wrapper">
+                    <input type="text" id="shopSearch" placeholder="Keresés..." class="search-input">
+                    <a href="javascript:void(0)" id="searchToggle" class="search-trigger" style="color: white; font-size: 1.3rem;"><i class="fas fa-search"></i></a>
+                </div>
+            </div>
         </div>
-        <div class="header-line"></div>
     </header>
 
-    <section class="shop-hero">
-        <h1>PRÉMIUM TERMÉKEINK</h1>
-        <p>Profi ápolószerek, amiket mi is használunk.</p>
-    </section>
+    <div class="container">
+        <section class="shop-hero">
+            <img src="shop-logo.png" alt="Logo" class="shop-hero-logo">
+            <p style="text-align: center; color: #aaa;">Prémium autóápolási termékek gyűjteménye</p>
+        </section>
 
-    <section class="info-section">
-        <div class="grid">
-            <div class="card">
-                <div class="card-icon">🧼</div>
-                <h3>pH Semleges Sampon</h3>
-                <p>Kíméletes a waxhoz, de kíméletlen a kosszal. 500ml</p>
-                <span class="price">4.990 Ft</span>
-                <a href="#" class="btn btn-lime" style="margin-top:10px; padding:10px 20px;">Kosárba</a>
-            </div>
-            
-            <div class="card">
-                <div class="card-icon">✨</div>
-                <h3>Gyors Wax Spray</h3>
-                <p>Azonnali ragyogás és vízlepergető hatás percek alatt.</p>
-                <span class="price">6.500 Ft</span>
-                <a href="#" class="btn btn-lime" style="margin-top:10px; padding:10px 20px;">Kosárba</a>
-            </div>
+        <div class="category-grid">
+            <a href="javascript:void(0)" class="cat-card" onclick="quickFilter('Külső')"><i class="fas fa-car"></i><h3>Külső</h3></a>
+            <a href="javascript:void(0)" class="cat-card" onclick="quickFilter('Belső')"><i class="fas fa-couch"></i><h3>Belső</h3></a>
+            <a href="javascript:void(0)" class="cat-card" onclick="quickFilter('Polír')"><i class="fas fa-magic"></i><h3>Polír</h3></a>
+            <a href="javascript:void(0)" class="cat-card" onclick="quickFilter('')"><i class="fas fa-tools"></i><h3>Összes</h3></a>
+        </div>
 
-            <div class="card">
-                <div class="card-icon">🧽</div>
-                <h3>Mikroszálas Törülköző</h3>
-                <p>Extra nedvszívó képesség, karcmentes száradás.</p>
-                <span class="price">3.200 Ft</span>
-                <a href="#" class="btn btn-lime" style="margin-top:10px; padding:10px 20px;">Kosárba</a>
+        <div class="product-grid" id="productGrid">
+            <div class="product-card" data-cat="Külső"> <div class="p-img"><i class="fas fa-flask"></i></div> <h4>Aktív Hab 1L</h4> <p class="price">4.900 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Külső"> <div class="p-img"><i class="fas fa-flask"></i></div> <h4>Nano Sampon 500ml</h4> <p class="price">3.500 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Külső"> <div class="p-img"><i class="fas fa-flask"></i></div> <h4>Felni Tisztító Gél</h4> <p class="price">4.200 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Külső"> <div class="p-img"><i class="fas fa-flask"></i></div> <h4>Bogároldó Spray</h4> <p class="price">2.800 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Külső"> <div class="p-img"><i class="fas fa-flask"></i></div> <h4>Gumiápoló Szilikonmentes</h4> <p class="price">3.900 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Külső"> <div class="p-img"><i class="fas fa-flask"></i></div> <h4>Kátrányoldó Profi</h4> <p class="price">4.500 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Külső"> <div class="p-img"><i class="fas fa-flask"></i></div> <h4>Iron-X Rozsdaoldó</h4> <p class="price">5.200 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Külső"> <div class="p-img"><i class="fas fa-flask"></i></div> <h4>Üvegtisztító Folyadék</h4> <p class="price">2.400 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Külső"> <div class="p-img"><i class="fas fa-flask"></i></div> <h4>Műanyag Ápoló Külső</h4> <p class="price">4.800 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Külső"> <div class="p-img"><i class="fas fa-flask"></i></div> <h4>Gyors Wax Spray</h4> <p class="price">3.600 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+
+            <div class="product-card" data-cat="Belső"> <div class="p-img"><i class="fas fa-couch"></i></div> <h4>Műszerfal Ápoló Matt</h4> <p class="price">3.100 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Belső"> <div class="p-img"><i class="fas fa-couch"></i></div> <h4>Bőrtisztító Balzsam</h4> <p class="price">5.900 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Belső"> <div class="p-img"><i class="fas fa-couch"></i></div> <h4>Kárpittisztító Koncentrátum</h4> <p class="price">2.900 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Belső"> <div class="p-img"><i class="fas fa-couch"></i></div> <h4>Szagsemlegesítő</h4> <p class="price">2.200 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Belső"> <div class="p-img"><i class="fas fa-couch"></i></div> <h4>APC Tisztítószer</h4> <p class="price">3.800 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Belső"> <div class="p-img"><i class="fas fa-couch"></i></div> <h4>Bőrápoló Tej</h4> <p class="price">4.200 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Belső"> <div class="p-img"><i class="fas fa-couch"></i></div> <h4>Szövetfrissítő Aroma</h4> <p class="price">1.900 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Belső"> <div class="p-img"><i class="fas fa-couch"></i></div> <h4>Légkondi Tisztító Bomb</h4> <p class="price">2.800 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Belső"> <div class="p-img"><i class="fas fa-couch"></i></div> <h4>Ecsetkészlet Belsőhöz</h4> <p class="price">4.500 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Belső"> <div class="p-img"><i class="fas fa-couch"></i></div> <h4>Belső Üvegtisztító</h4> <p class="price">2.600 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+
+            <div class="product-card" data-cat="Polír"> <div class="p-img"><i class="fas fa-magic"></i></div> <h4>Heavy Cut Paszta</h4> <p class="price">6.500 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Polír"> <div class="p-img"><i class="fas fa-magic"></i></div> <h4>Medium Polír</h4> <p class="price">6.200 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Polír"> <div class="p-img"><i class="fas fa-magic"></i></div> <h4>Ultra Gloss Finish</h4> <p class="price">6.800 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Polír"> <div class="p-img"><i class="fas fa-magic"></i></div> <h4>Kerámia Kit 30ml</h4> <p class="price">24.900 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Polír"> <div class="p-img"><i class="fas fa-magic"></i></div> <h4>Carnauba Wax</h4> <p class="price">12.500 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Polír"> <div class="p-img"><i class="fas fa-magic"></i></div> <h4>Fényszóró Polír Szett</h4> <p class="price">8.900 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Polír"> <div class="p-img"><i class="fas fa-magic"></i></div> <h4>Alkoholos Zsírtalanító</h4> <p class="price">2.800 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Polír"> <div class="p-img"><i class="fas fa-magic"></i></div> <h4>Polír Korong Szett</h4> <p class="price">3.500 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Polír"> <div class="p-img"><i class="fas fa-magic"></i></div> <h4>Graphene Wax</h4> <p class="price">7.900 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Polír"> <div class="p-img"><i class="fas fa-magic"></i></div> <h4>Kerámia Sampon</h4> <p class="price">5.500 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+
+            <div class="product-card" data-cat="Eszköz"> <div class="p-img"><i class="fas fa-tools"></i></div> <h4>Szárító Törölköző</h4> <p class="price">4.900 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Eszköz"> <div class="p-img"><i class="fas fa-tools"></i></div> <h4>Mikroszálas Kendő</h4> <p class="price">2.500 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Eszköz"> <div class="p-img"><i class="fas fa-tools"></i></div> <h4>Mosókesztyű</h4> <p class="price">3.800 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Eszköz"> <div class="p-img"><i class="fas fa-tools"></i></div> <h4>Profi Vödör + Szűrő</h4> <p class="price">6.900 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Eszköz"> <div class="p-img"><i class="fas fa-tools"></i></div> <h4>Applikátor Szivacs</h4> <p class="price">1.200 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Eszköz"> <div class="p-img"><i class="fas fa-tools"></i></div> <h4>Permetező Flakon</h4> <p class="price">1.800 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Eszköz"> <div class="p-img"><i class="fas fa-tools"></i></div> <h4>Részletező Ecset</h4> <p class="price">2.200 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Eszköz"> <div class="p-img"><i class="fas fa-tools"></i></div> <h4>Üvegtisztító Kendő</h4> <p class="price">1.800 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Eszköz"> <div class="p-img"><i class="fas fa-tools"></i></div> <h4>Kábelterelő Görgő</h4> <p class="price">3.500 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+            <div class="product-card" data-cat="Eszköz"> <div class="p-img"><i class="fas fa-tools"></i></div> <h4>Térdeplő Szivacs</h4> <p class="price">4.200 Ft</p> <button class="btn-shop">Kosárba</button> </div>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="cart-modal">
+        <div class="cart-content" style="text-align: center;">
+            <i class="fas fa-check-circle" style="font-size: 50px; color: #76ff03; margin-bottom: 20px;"></i>
+            <h2 id="confirmMsg" style="color: white; margin-bottom: 25px;">Termék hozzáadva!</h2>
+            <div class="cart-actions">
+                <button onclick="closeModal('confirmModal')" class="btn-outline">Folytatás</button>
+                <button onclick="showCart(); closeModal('confirmModal')" class="btn-lime">Kosár</button>
             </div>
         </div>
-    </section>
+    </div>
 
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-content">
+            <span class="close-cart" onclick="closeModal('cartModal')" style="float:right; cursor:pointer; font-size: 24px; color: #76ff03;">&times;</span>
+            <h2 style="color: #76ff03; margin-bottom: 20px;">KOSÁR</h2>
+            <div id="cartItemsList"></div>
+            <div class="cart-total">Összesen: <span id="totalAmount">0</span> Ft</div>
+            <div class="cart-actions">
+                <button onclick="closeModal('cartModal')" class="btn-outline">Mégse</button>
+                <button class="btn-lime">Fizetés</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <img src="logo.png" alt="ShineCars Logo" class="footer-logo">
+            <div class="social-links">
+                <a href="https://www.facebook.com/people/Shine-Cars/100063511902918/" target="_blank" class="social-item">
+                    <i class="fab fa-facebook-f"></i>
+                    <span>Facebook</span>
+                </a>
+                <a href="https://www.instagram.com/shinecarsbalaton?igsh=OWVtYzFraWdjMmhi" target="_blank" class="social-item">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="https://www.tiktok.com/@shinecars2019?_r=1&_t=ZN-944iy3sUGz0" target="_blank" class="social-item">
+                    <i class="fab fa-tiktok"></i>
+                    <span>TikTok</span>
+                </a>
+            </div>
+            <p class="copyright">© 2024 ShineCars Autókozmetika. Minden jog fenntartva.</p>
+        </div>
+    </footer>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('shineCarsCart')) || [];
+        const shopSearch = document.getElementById('shopSearch');
+        const searchToggle = document.getElementById('searchToggle');
+        const removeAccents = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+        function updateCartUI() {
+            const countElements = document.querySelectorAll('.cart-count');
+            const totalItems = cart.reduce((s, i) => s + i.quantity, 0);
+            countElements.forEach(el => el.innerText = totalItems);
+            localStorage.setItem('shineCarsCart', JSON.stringify(cart));
+        }
+
+        searchToggle.addEventListener('click', () => {
+            shopSearch.classList.toggle('active');
+            if(shopSearch.classList.contains('active')) shopSearch.focus();
+        });
+
+        shopSearch.addEventListener('keyup', () => {
+            const term = removeAccents(shopSearch.value.toLowerCase());
+            document.querySelectorAll('.product-card').forEach(p => {
+                const text = removeAccents(p.innerText.toLowerCase()) + removeAccents(p.getAttribute('data-cat').toLowerCase());
+                p.style.display = text.includes(term) ? "block" : "none";
+            });
+        });
+
+        function quickFilter(val) {
+            shopSearch.value = val;
+            shopSearch.classList.add('active');
+            shopSearch.dispatchEvent(new Event('keyup'));
+        }
+
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('btn-shop')) {
+                const card = e.target.closest('.product-card');
+                const name = card.querySelector('h4').innerText;
+                const price = parseInt(card.querySelector('.price').innerText.replace(/[^0-9]/g, ''));
+                const item = cart.find(i => i.name === name);
+                if(item) item.quantity++; else cart.push({name, price, quantity: 1});
+                updateCartUI();
+                document.getElementById('confirmMsg').innerText = name + " a kosárba került!";
+                document.getElementById('confirmModal').style.display = 'flex';
+            }
+        });
+
+        function changeQty(index, delta) {
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) cart.splice(index, 1);
+            updateCartUI();
+            showCart();
+        }
+
+        function showCart() {
+            const list = document.getElementById('cartItemsList');
+            list.innerHTML = cart.length === 0 ? '<p style="color:#aaa; text-align:center;">A kosár üres.</p>' : '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                list.innerHTML += `
+                <div class="cart-item-row">
+                    <div style="flex:2; color: white; font-size: 0.9rem;"><strong>${item.name}</strong></div>
+                    <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+                        <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+                        <span class="qty-display">${item.quantity}</span>
+                        <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+                    </div>
+                    <div style="flex:1; text-align:right; color: #76ff03; font-weight: bold; font-size: 0.9rem;">
+                        ${(item.price * item.quantity).toLocaleString()} Ft
+                        <i class="fas fa-trash" onclick="changeQty(${index}, -999)" style="color:#ff4444; cursor:pointer; margin-left:10px;"></i>
+                    </div>
+                </div>`;
+            });
+            document.getElementById('totalAmount').innerText = total.toLocaleString();
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        updateCartUI();
+    </script>
 </body>
 </html>

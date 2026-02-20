@@ -7,6 +7,71 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* --- WEBSHOP STÍLUSOK INTEGRÁLÁSA --- */
+        .shop-icons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            order: 2; /* Kereső jobbra */
+        }
+
+        .cart-icon {
+            order: 1; /* Kosár balra */
+            position: relative;
+            font-size: 1.4rem;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .cart-icon:hover { color: #76ff03; }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: #76ff03;
+            color: black;
+            font-size: 0.7rem;
+            font-weight: 900;
+            padding: 2px 6px;
+            border-radius: 50%;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        .search-input {
+            width: 0;
+            opacity: 0;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #76ff03;
+            color: white;
+            padding: 8px 0;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            outline: none;
+        }
+
+        .search-input.active {
+            width: 180px;
+            opacity: 1;
+            padding: 8px 15px;
+            margin-right: 10px;
+        }
+
+        .logo-box img {
+            max-height: 80px; 
+            mix-blend-mode: screen;
+            display: block;
+        }
+    </style>
 </head>
 <body>
 
@@ -23,7 +88,18 @@
                     <li><a href="#contact">KAPCSOLAT</a></li>
                 </ul>
             </nav>
-            <div class="search-icon">🔍</div>
+            <div class="shop-icons">
+                <a href="webshop.html" class="cart-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <div class="search-wrapper">
+                    <input type="text" id="mainSearch" placeholder="Keress szolgáltatást..." class="search-input">
+                    <a href="javascript:void(0)" id="searchToggle" class="search-trigger" style="color: white; font-size: 1.3rem;">
+                        <i class="fas fa-search"></i>
+                    </a>
+                </div>
+            </div>
         </div>
         <div class="header-line"></div>
     </header>
@@ -73,36 +149,83 @@
     <section id="services" class="info-section">
         <div class="container">
             <h2 class="section-title">Profi Szolgáltatásaink</h2>
+            
+            <h3 class="category-title" style="color: #76ff03; margin: 40px 0 20px; text-transform: uppercase; letter-spacing: 2px; border-left: 4px solid #76ff03; padding-left: 15px;">Külső Kozmetika</h3>
             <div class="services-grid">
                 <div class="service-row">
-                    <div class="service-info">
-                        <h3>Külső Prémium Mosás</h3>
-                        <p>Karcmentes tisztítás, aktív hab, felni és gumiápolás.</p>
-                    </div>
+                    <div class="service-info"><h3>Prémium Külső Mosás</h3><p>Aktív habos előmosás, kétvödrös technika, felni tisztítás, gumiápolás, kíméletes szárítás.</p></div>
                     <div class="service-price">8.500 Ft-tól</div>
                 </div>
                 <div class="service-row">
-                    <div class="service-info">
-                        <h3>Belső Prémium Kozmetika</h3>
-                        <p>Porszívózás, műanyagápolás, rések tisztítása.</p>
-                    </div>
+                    <div class="service-info"><h3>Vegyszeres Dekontaminálás</h3><p>Röpködő rozsda (iron) és kátrány eltávolítása a fényezésről.</p></div>
+                    <div class="service-price">12.000 Ft-tól</div>
+                </div>
+                <div class="service-row">
+                    <div class="service-info"><h3>Gyurmázás (Clay bar)</h3><p>A fényezésbe ragadt durva szennyeződések mechanikai eltávolítása.</p></div>
+                    <div class="service-price">10.000 Ft-tól</div>
+                </div>
+                <div class="service-row">
+                    <div class="service-info"><h3>Motortér Tisztítás</h3><p>Száraz gőzös vagy vegyszeres tisztítás, műanyag kondicionálással.</p></div>
+                    <div class="service-price">15.000 Ft-tól</div>
+                </div>
+            </div>
+
+            <h3 class="category-title" style="color: #76ff03; margin: 40px 0 20px; text-transform: uppercase; letter-spacing: 2px; border-left: 4px solid #76ff03; padding-left: 15px;">Belső Kozmetika</h3>
+            <div class="services-grid">
+                <div class="service-row">
+                    <div class="service-info"><h3>Alap Belső Tisztítás</h3><p>Porszívózás, műanyagok portalanítása, üvegtisztítás, illatosítás.</p></div>
                     <div class="service-price">12.900 Ft-tól</div>
                 </div>
                 <div class="service-row">
-                    <div class="service-info">
-                        <h3>Mélyvizes Kárpittisztítás</h3>
-                        <p>Ülések és padlószőnyeg vegyszeres mélytisztítása.</p>
-                    </div>
+                    <div class="service-info"><h3>Mélyvizes Kárpittisztítás</h3><p>Ülések, padlószőnyeg és tetőkárpit vegyszeres mélymosása extractorral.</p></div>
                     <div class="service-price">25.000 Ft-tól</div>
                 </div>
                 <div class="service-row">
-                    <div class="service-info">
-                        <h3>Gépi Fényesítő Polírozás</h3>
-                        <p>Egy lépcsős polír a karcok eltüntetésére.</p>
-                    </div>
-                    <div class="service-price">48.000 Ft-tól</div>
+                    <div class="service-info"><h3>Bőrtisztítás & Ápolás</h3><p>Bőrfelületek mélytisztítása és prémium kondicionálása a repedezés ellen.</p></div>
+                    <div class="service-price">18.000 Ft-tól</div>
+                </div>
+                <div class="service-row">
+                    <div class="service-info"><h3>Ózonos Fertőtlenítés</h3><p>Kellemetlen szagok, baktériumok és gombák teljes kiirtása az utastérből.</p></div>
+                    <div class="service-price">8.000 Ft</div>
                 </div>
             </div>
+
+            <h3 class="category-title" style="color: #76ff03; margin: 40px 0 20px; text-transform: uppercase; letter-spacing: 2px; border-left: 4px solid #76ff03; padding-left: 15px;">Fényezés Korrekció</h3>
+            <div class="services-grid">
+                <div class="service-row">
+                    <div class="service-info"><h3>Fényesítő (1-lépcsős) Polír</h3><p>Mikrokarcok eltüntetése, a fényezés ragyogásának visszaállítása.</p></div>
+                    <div class="service-price">48.000 Ft-tól</div>
+                </div>
+                <div class="service-row">
+                    <div class="service-info"><h3>Többlépcsős Korrekció</h3><p>Mélyebb karcok, mattulások eltávolítása professzionális gépekkel.</p></div>
+                    <div class="service-price">85.000 Ft-tól</div>
+                </div>
+                <div class="service-row">
+                    <div class="service-info"><h3>Fényszóró Felújítás</h3><p>Mattult, besárgult lámpák polírozása és UV védő bevonat.</p></div>
+                    <div class="service-price">10.000 Ft / pár</div>
+                </div>
+            </div>
+
+            <h3 class="category-title" style="color: #76ff03; margin: 40px 0 20px; text-transform: uppercase; letter-spacing: 2px; border-left: 4px solid #76ff03; padding-left: 15px;">Védelem & Bevonatok</h3>
+            <div class="services-grid">
+                <div class="service-row">
+                    <div class="service-info"><h3>Kemény Wax Bevonat</h3><p>Prémium carnauba wax a 3-6 hónapos védelemért és extra vízlepergetésért.</p></div>
+                    <div class="service-price">15.000 Ft-tól</div>
+                </div>
+                <div class="service-row">
+                    <div class="service-info"><h3>Kerámia Bevonat (1-3 év)</h3><p>Hosszú távú vegyi és UV védelem, elképesztő tükörfény és öntisztuló képesség.</p></div>
+                    <div class="service-price">120.000 Ft-tól</div>
+                </div>
+                <div class="service-row">
+                    <div class="service-info"><h3>Üveg Kerámia (Rain-off)</h3><p>Vízlepergető bevonat a szélvédőre a jobb látási viszonyokért esőben.</p></div>
+                    <div class="service-price">10.000 Ft-tól</div>
+                </div>
+                <div class="service-row">
+                    <div class="service-info"><h3>Felnivédelem</h3><p>Hőálló kerámia bevonat, amely megakadályozza a fékpor ráégését.</p></div>
+                    <div class="service-price">20.000 Ft-tól</div>
+                </div>
+            </div>
+
             <div style="text-align: center; margin-top: 60px;">
                 <a href="#home" class="btn btn-outline">Vissza a tetejére</a>
             </div>
@@ -116,14 +239,14 @@
                 <div class="contact-info">
                     <div class="contact-item">
                         <span class="contact-icon">📍</span>
-                        <div><h4>Helyszín</h4><p>1234 Budapest, Autókozmetika utca 12.</p></div>
+                        <div><h4>Helyszín</h4><p>8184 Balatonfűzfő Ipartelep.</p></div>
                     </div>
                     <div class="contact-item">
                         <span class="contact-icon">📞</span>
-                        <div><h4>Telefon</h4><p><a href="tel:+36301234567" class="phone-link">+36 30 123 4567</a></p></div>
+                        <div><h4>Telefon</h4><p><a href="tel:06203213933" class="phone-link">+36 20 321 3933</a></p></div>
                     </div>
                     <div class="map-box">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1111!2d19.0402!3d47.4979!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1shu!2shu!4v123456789" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2717.047796186452!2d18.020691175749853!3d47.078526324295204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4769912ab83bc16b%3A0xbed595ddbaf55fb4!2sShine%20Cars!5e0!3m2!1shu!2sus!4v1771588265144!5m2!1shu!2sus" width="100%" height="250" style="border:0; border-radius: 15px;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
 
@@ -147,26 +270,121 @@
         </div>
     </section>
 
-   <footer>
-    <div class="footer-container">
-        <img src="logo.png" alt="ShineCars Logo" class="footer-logo">
-        <div class="social-links">
-            <a href="https://facebook.com/profilod" target="_blank" class="social-item">
-                <i class="fab fa-facebook-f"></i>
-                <span>Facebook</span>
-            </a>
-            <a href="https://instagram.com/profilod" target="_blank" class="social-item">
-                <i class="fab fa-instagram"></i>
-                <span>Instagram</span>
-            </a>
-            <a href="https://tiktok.com/@profilod" target="_blank" class="social-item">
-                <i class="fab fa-tiktok"></i>
-                <span>TikTok</span>
-            </a>
+    <footer>
+        <div class="footer-container">
+            <img src="logo.png" alt="ShineCars Logo" class="footer-logo">
+            <div class="social-links">
+                <a href="https://www.facebook.com/people/Shine-Cars/100063511902918/" target="_blank" class="social-item">
+                    <i class="fab fa-facebook-f"></i>
+                    <span>Facebook</span>
+                </a>
+                <a href="https://www.instagram.com/shinecarsbalaton?igsh=OWVtYzFraWdjMmhi" target="_blank" class="social-item">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="https://www.tiktok.com/@shinecars2019?_r=1&_t=ZN-944iy3sUGz0" target="_blank" class="social-item">
+                    <i class="fab fa-tiktok"></i>
+                    <span>TikTok</span>
+                </a>
+            </div>
+            <p class="copyright">© 2024 ShineCars Autókozmetika. Minden jog fenntartva.</p>
         </div>
-        <p class="copyright">© 2024 ShineCars Autókozmetika. Minden jog fenntartva.</p>
-    </div>
-</footer>
+    </footer>
 
+    <script>
+        const searchToggle = document.getElementById('searchToggle');
+        const mainSearch = document.getElementById('mainSearch');
+
+        // Kosár számláló frissítése (LocalStorage-ból)
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem('shineCarsCart')) || [];
+            const count = cart.reduce((s, i) => s + i.quantity, 0);
+            const countDisplay = document.querySelector('.cart-count');
+            if(countDisplay) countDisplay.innerText = count;
+        }
+
+        const removeAccents = (str) => {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        };
+
+        const performSearchAndJump = () => {
+            const term = removeAccents(mainSearch.value.toLowerCase().trim());
+            if (term === "") return;
+
+            const searchableElements = document.querySelectorAll('.service-row, .about-text p, .about-text h2, .contact-item');
+            let firstMatch = null;
+
+            searchableElements.forEach(el => {
+                const cleanContent = removeAccents(el.innerText.toLowerCase());
+                if (cleanContent.includes(term)) {
+                    if (!firstMatch) firstMatch = el;
+                    el.style.display = el.classList.contains('service-row') ? "flex" : "block";
+                    el.style.opacity = "1";
+                } else {
+                    el.style.display = "none";
+                }
+            });
+
+            if (firstMatch) {
+                firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstMatch.style.transition = "outline 0.3s ease";
+                firstMatch.style.outline = "3px solid #76ff03";
+                setTimeout(() => { firstMatch.style.outline = "none"; }, 1500);
+            }
+        };
+
+        searchToggle.addEventListener('click', () => {
+            if (!mainSearch.classList.contains('active')) {
+                mainSearch.classList.add('active');
+                mainSearch.focus();
+            } else {
+                performSearchAndJump();
+            }
+        });
+
+        mainSearch.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') performSearchAndJump();
+        });
+
+        mainSearch.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') return;
+            const term = removeAccents(e.target.value.toLowerCase().trim());
+            const searchableElements = document.querySelectorAll('.service-row, .about-text p, .about-text h2, .contact-item, .category-title');
+
+            searchableElements.forEach(el => {
+                const cleanContent = removeAccents(el.innerText.toLowerCase());
+                if (term === "" || cleanContent.includes(term)) {
+                    el.style.display = el.classList.contains('service-row') ? "flex" : "block";
+                    el.style.opacity = "1";
+                } else {
+                    el.style.display = "none";
+                    el.style.opacity = "0";
+                }
+            });
+
+            const sections = document.querySelectorAll('section');
+            sections.forEach(sec => {
+                if (term !== "") {
+                    const hasVisible = Array.from(sec.querySelectorAll('.service-row, .about-text p, .contact-item'))
+                                          .some(el => el.style.display !== "none");
+                    sec.style.opacity = hasVisible ? "1" : "0.2";
+                } else {
+                    sec.style.opacity = "1";
+                }
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Inicializálás
+        updateCartCount();
+        window.addEventListener('storage', updateCartCount);
+    </script>
 </body>
 </html>
