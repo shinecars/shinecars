@@ -231,41 +231,83 @@ section { padding: 120px 10%; width: 100%; }
 .map-wrapper { border-radius: 30px; overflow: hidden; border: 1px solid #222; height: 500px; }
 .map-wrapper iframe { width: 100%; height: 100%; filter: grayscale(1) invert(0.9); border: 0; }
 
-/* --- MOBIL NÉZET - FIXÁLT --- */
+/* --- MOBIL NÉZET TELJES JAVÍTÁS --- */
 @media (max-width: 992px) {
-    /* --- Ezt a részt cseréld ki a media query-n belül --- */
+    /* Alap padding csökkentése mobilon, hogy ne szűküljön be minden */
+    section { padding: 80px 5% !important; }
+
+    header { 
+        background: rgba(0,0,0,0.95); 
+        padding: 15px 0; 
+    }
+
+    .top-nav { 
+        padding: 0 5%; 
+        flex-direction: column; 
+        gap: 15px; 
+    }
+
+    .nav-right-side { 
+        width: 100%; 
+        flex-direction: column; 
+        gap: 10px; 
+    }
+
+    nav { display: none; } /* Mobil menü elrejtése, ha nincs burger */
+
+    .search-container { 
+        width: 100%; 
+        justify-content: center; 
+    }
+
+    .search-container input { 
+        width: 100% !important; 
+        text-align: center; 
+    }
+
+    /* HERO FIX - Kényszerített szélesség és háttér */
     .hero {
-        width: 100vw !important;
-        height: 100vh;
-        background-attachment: scroll !important; /* Mobilon a fixed bugos, ez javítja */
-        background-size: cover;
-        background-position: center center;
+        width: 100% !important;
+        height: 100vh !important;
+        min-height: 100vh;
+        background-attachment: scroll !important;
+        background-size: cover !important;
+        background-position: center center !important;
+        padding: 0 !important; /* Fontos: a section padding ne tolja el! */
+        margin: 0 !important;
         overflow: hidden;
-        position: relative;
-        left: 0;
-        margin: 0;
     }
 
     .hero-content {
         width: 100%;
         padding: 0 20px;
-        box-sizing: border-box;
     }
 
     .hero-btns {
         flex-direction: column;
         width: 100%;
         gap: 15px;
+        padding: 0 20px;
     }
 
     .btn {
         width: 100%;
-        margin-left: 0 !important; /* Eltünteti az oldalsó margót, ami eltolta a gombot */
+        margin-left: 0 !important;
         text-align: center;
     }
-    /* --- Eddig tart a csere --- */
-}
 
+    /* Bento és Grid fixek */
+    .about-grid, .contact-grid { 
+        grid-template-columns: 1fr; 
+        gap: 30px; 
+    }
+
+    .about-stats { 
+        grid-template-columns: 1fr; 
+        text-align: center; 
+    }
+
+    /* Szolgáltatás lista mobilra */
     .service-item {
         flex-direction: column;
         text-align: center;
@@ -273,6 +315,12 @@ section { padding: 120px 10%; width: 100%; }
         padding: 25px 15px;
     }
 
-    .service-price { margin-left: 0; }
+    .service-price { 
+        margin-left: 0; 
+        font-size: 20px;
+    }
 
-    .map-wrapper { height: 300px; }
+    .map-wrapper { 
+        height: 300px; 
+    }
+}
