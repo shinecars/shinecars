@@ -265,36 +265,49 @@ section { padding: 120px 10%; width: 100%; }
         text-align: center; 
     }
 
-    /* HERO FIX - Kényszerített szélesség és háttér */
+    /* --- BRUTÁL MOBIL HERO FIX --- */
+@media (max-width: 992px) {
+    /* 1. Kiütjük a globális paddingot a heroból, ami összenyomja a képet */
     .hero {
+        display: block !important; /* Blokkosítjuk a flex helyett, hogy stabilabb legyen */
         width: 100% !important;
-        height: 100vh !important;
-        min-height: 100vh;
-        background-attachment: scroll !important;
+        height: 80vh !important;   /* Fix magasság, hogy ne ugráljon a címsor miatt */
+        min-height: 500px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background-attachment: scroll !important; /* Létfontosságú: mobilon a fixed tönkreteszi a méretezést */
         background-size: cover !important;
         background-position: center center !important;
-        padding: 0 !important; /* Fontos: a section padding ne tolja el! */
-        margin: 0 !important;
-        overflow: hidden;
+        position: relative !important;
     }
 
+    /* 2. A tartalmat kézzel pozicionáljuk a kép fölé */
     .hero-content {
-        width: 100%;
-        padding: 0 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        margin: 0;
+        z-index: 10;
     }
 
+    /* 3. A gombok ne érjenek ki a kijelző szélére */
     .hero-btns {
-        flex-direction: column;
-        width: 100%;
-        gap: 15px;
-        padding: 0 20px;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 15px !important;
+        margin-top: 30px !important;
+        padding: 0 10% !important;
     }
 
     .btn {
-        width: 100%;
-        margin-left: 0 !important;
-        text-align: center;
+        width: 100% !important;
+        max-width: 300px; /* Ne legyen nevetségesen széles nagy telefonon */
+        margin: 0 !important;
     }
+}
 
     /* Bento és Grid fixek */
     .about-grid, .contact-grid { 
