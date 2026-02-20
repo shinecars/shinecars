@@ -131,7 +131,7 @@
         }
         .search-container input:focus { width: 180px; }
 
-        /* --- Hero Section --- */
+        /* --- Hero Section (Asztali alap) --- */
         .hero {
             height: 100vh;
             width: 100%;
@@ -258,9 +258,9 @@
         .social-icons a { color: white; font-size: 24px; transition: 0.3s; }
         .social-icons a:hover { color: var(--lime); transform: translateY(-5px); }
 
-        /* --- MOBIL NÉZET JAVÍTÁS --- */
+        /* --- MOBIL NÉZET JAVÍTÁS (KÉP TORZULÁS ÉS LEVÁGÁS FIX) --- */
         @media (max-width: 992px) {
-            section { padding: 60px 5% !important; }
+            section { padding: 80px 5% !important; }
             header { background: rgba(0,0,0,0.95); padding: 15px 0; }
             .top-nav { padding: 0 5%; flex-direction: column; gap: 15px; }
             .nav-right-side { width: 100%; flex-direction: column; gap: 10px; }
@@ -268,19 +268,36 @@
             .search-container { width: 100%; justify-content: center; }
             .search-container input { width: 100% !important; text-align: center; }
             
-            /* --- KRITIKUS HERO FIX MOBILRA --- */
+            /* --- DRASZTIKUS HERO JAVÍTÁS --- */
             .hero { 
                 width: 100% !important; 
-                height: 100vh !important; 
-                min-height: 100vh !important;
-                background-attachment: scroll !important; /* Fixed háttér kikapcsolása mobilon a torzulás ellen */
-                background-size: cover !important;
-                background-position: center center !important;
-                padding: 0 !important;
-                margin: 0 !important;
+                height: 70vh !important; /* Nem 100vh, hogy ne legyen óriási üres hely */
+                min-height: 450px !important;
+                background-attachment: scroll !important; 
+                background-size: contain !important; /* A teljes képet mutatja levágás nélkül */
+                background-position: top center !important; /* A logó fent maradjon */
+                display: flex !important;
+                align-items: flex-end !important; /* A gombokat a kép ALÁ toljuk */
+                padding-bottom: 20px !important;
+                background-color: #000; /* Fekete háttér a kép körül */
             }
-            .hero-btns { flex-direction: column; width: 100%; padding: 0 20px; gap: 15px; }
-            .btn { width: 100%; text-align: center; margin-left: 0 !important; }
+
+            .hero-btns { 
+                flex-direction: column !important; 
+                width: 100% !important; 
+                padding: 0 30px !important; 
+                gap: 15px !important;
+                margin-top: 0 !important;
+                margin-bottom: 20px !important;
+            }
+
+            .btn { 
+                width: 100% !important; 
+                text-align: center !important; 
+                margin-left: 0 !important; 
+                padding: 15px !important;
+                font-size: 13px !important;
+            }
 
             .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 30px; }
             .about-stats { grid-template-columns: 1fr; text-align: center; }
@@ -353,7 +370,7 @@
                 <div class="service-item" data-aos="fade-up">
                     <div class="service-info">
                         <h3>Kémiai Tisztítás</h3>
-                        <p>Kátrány és szállórozsda eltávolítás gyurmázással.</p>
+                        <p>Kátrány és szállórozsda eltátlítás gyurmázással.</p>
                     </div>
                     <div class="service-price">18.000 Ft-tól</div>
                 </div>
@@ -432,7 +449,7 @@
     <section id="contact" class="searchable-section">
         <div class="contact-grid">
             <div class="map-wrapper" data-aos="fade-right">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2717.047796186452!2d18.020691175749853!3d47.078526324295204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4769912ab83bc16b%3A0xbed595ddbaf55fb4!2sShine%20Cars!5e0!3m2!1shu!2sus!4v1771588265144!5m2!1shu!2sus"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2735.636417772656!2d18.0436855!3d47.057317!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4769911e8608e589%3A0x6b77239274945404!2zQmFsYXRvbmY8emYxLCBJcGFyaSBwYXJr!5e0!3m2!1shu!2shu!4v1710000000000!5m2!1shu!2shu"></iframe>
             </div>
             <div class="about-card" data-aos="fade-left">
                 <h2 class="section-title">Kapcsolat</h2>
