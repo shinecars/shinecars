@@ -283,20 +283,124 @@ footer {
     letter-spacing: 1px;
 }
 
-/* --- MOBIL LÁBLÉC --- */
+/* --- VÉGSŐ MOBIL STABILIZÁLÁS --- */
 @media (max-width: 768px) {
-    footer {
-        padding: 20px 5%;
+    /* Alapvető biztonsági korlátok */
+    html, body {
+        overflow-x: hidden;
+        position: relative;
     }
-    
-    .social-links {
-        flex-direction: row; /* Mobilon is maradjanak egymás mellett a linkek */
+
+    /* Szekciók: Kevesebb padding, hogy ne tolja össze a szöveget */
+    section {
+        padding: 40px 15px !important; 
+    }
+
+    /* Fejléc: Tisztább elrendezés */
+    .top-nav {
+        flex-direction: column;
+        padding: 15px 10px;
         gap: 15px;
+    }
+
+    .logo-box img {
+        height: 60px; /* Kisebb logó mobilon */
+    }
+
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+    }
+
+    nav ul li {
+        width: 100%;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 10px;
+        border-bottom: 1px solid #222;
+        font-size: 13px;
+    }
+
+    /* Hero rész: Ne lógjon ki semmi */
+    .hero {
+        height: auto;
+        min-height: 60vh;
+        padding: 40px 10px;
+    }
+
+    .hero-logo {
+        width: 100%;
+        max-width: 300px; /* Kisebb hero logó mobilon */
+    }
+
+    .hero-btns {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .btn {
+        width: 100%; /* Gombok teljes szélességben a kényelemért */
+        padding: 12px 20px;
+        font-size: 12px;
+    }
+
+    /* Szolgáltatások: Itt volt a legtöbb kilógás */
+    .service-row {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 10px;
+        gap: 10px;
+    }
+
+    .service-info h3 {
+        font-size: 18px;
+    }
+
+    .service-price {
+        font-size: 18px;
+        text-align: center;
+        width: 100%;
+    }
+
+    /* Rólunk statisztikák: Ne essenek szét */
+    .about-stats {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    /* Kapcsolat rács */
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .map-box {
+        height: 250px;
+        width: 100%;
+    }
+
+    .contact-form {
+        padding: 20px;
+    }
+
+    /* Lábléc: Kompakt nézet */
+    .social-links {
         flex-wrap: wrap;
         justify-content: center;
+        gap: 10px;
     }
 
     .social-btn {
-        font-size: 12px;
+        font-size: 11px;
+        padding: 5px
     }
 }
