@@ -231,109 +231,87 @@ section { padding: 120px 10%; width: 100%; }
 .map-wrapper { border-radius: 30px; overflow: hidden; border: 1px solid #222; height: 500px; }
 .map-wrapper iframe { width: 100%; height: 100%; filter: grayscale(1) invert(0.9); border: 0; }
 
-/* --- MOBIL NÉZET TELJES JAVÍTÁS --- */
+/* --- MOBIL NÉZET TELJES ÉS VÉGLEGES JAVÍTÁS --- */
 @media (max-width: 992px) {
-    /* Alap padding csökkentése mobilon, hogy ne szűküljön be minden */
-    section { padding: 80px 5% !important; }
-
-    header { 
-        background: rgba(0,0,0,0.95); 
-        padding: 15px 0; 
-    }
-
-    .top-nav { 
-        padding: 0 5%; 
-        flex-direction: column; 
-        gap: 15px; 
-    }
-
-    .nav-right-side { 
-        width: 100%; 
-        flex-direction: column; 
-        gap: 10px; 
-    }
-
-    nav { display: none; } /* Mobil menü elrejtése, ha nincs burger */
-
-    .search-container { 
-        width: 100%; 
-        justify-content: center; 
-    }
-
-    .search-container input { 
-        width: 100% !important; 
-        text-align: center; 
-    }
-
-    /* --- BRUTÁL MOBIL HERO FIX --- */
-@media (max-width: 992px) {
-    /* 1. Kiütjük a globális paddingot a heroból, ami összenyomja a képet */
-    .hero {
-        display: block !important; /* Blokkosítjuk a flex helyett, hogy stabilabb legyen */
+    /* 1. Globális szekció padding fix */
+    section { 
+        padding: 60px 20px !important; 
         width: 100% !important;
-        height: 80vh !important;   /* Fix magasság, hogy ne ugráljon a címsor miatt */
-        min-height: 500px !important;
+        overflow: hidden;
+    }
+
+    /* 2. Fejléc és Navigáció */
+    header { 
+        background: rgba(0,0,0,0.95) !important; 
+        padding: 10px 0 !important; 
+    }
+    .top-nav { 
+        flex-direction: column !important; 
+        gap: 10px !important; 
+    }
+    .nav-right-side { 
+        width: 100% !important; 
+        flex-direction: column !important; 
+        gap: 10px !important; 
+    }
+    nav { display: none !important; }
+    .search-container { width: 90% !important; }
+    .search-container input { width: 100% !important; text-align: center; }
+
+    /* 3. HERO KÉP FIX - Ez az, ami eddig nem ment */
+    .hero {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        height: 100vh !important; /* Kitölti a kijelzőt */
         padding: 0 !important;
         margin: 0 !important;
-        background-attachment: scroll !important; /* Létfontosságú: mobilon a fixed tönkreteszi a méretezést */
+        /* A háttérkép kényszerítése */
+        background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), url('hero-car.jpg') !important;
+        background-attachment: scroll !important; /* iOS fix */
         background-size: cover !important;
         background-position: center center !important;
-        position: relative !important;
+        background-repeat: no-repeat !important;
     }
 
-    /* 2. A tartalmat kézzel pozicionáljuk a kép fölé */
     .hero-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 90%;
-        margin: 0;
-        z-index: 10;
+        width: 100% !important;
+        padding: 0 20px !important;
     }
 
-    /* 3. A gombok ne érjenek ki a kijelző szélére */
+    .hero-content h1 {
+        font-size: 40px !important;
+        line-height: 1.1 !important;
+    }
+
     .hero-btns {
-        display: flex !important;
         flex-direction: column !important;
-        align-items: center !important;
         gap: 15px !important;
-        margin-top: 30px !important;
         padding: 0 10% !important;
     }
 
     .btn {
         width: 100% !important;
-        max-width: 300px; /* Ne legyen nevetségesen széles nagy telefonon */
         margin: 0 !important;
     }
-}
 
-    /* Bento és Grid fixek */
+    /* 4. Szolgáltatások és egyebek */
     .about-grid, .contact-grid { 
-        grid-template-columns: 1fr; 
-        gap: 30px; 
+        grid-template-columns: 1fr !important; 
     }
-
-    .about-stats { 
-        grid-template-columns: 1fr; 
-        text-align: center; 
-    }
-
-    /* Szolgáltatás lista mobilra */
+    
     .service-item {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
-        padding: 25px 15px;
+        flex-direction: column !important;
+        text-align: center !important;
+        padding: 20px !important;
     }
 
     .service-price { 
-        margin-left: 0; 
-        font-size: 20px;
+        margin: 10px 0 0 0 !important; 
     }
 
     .map-wrapper { 
-        height: 300px; 
+        height: 250px !important; 
     }
 }
