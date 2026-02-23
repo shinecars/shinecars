@@ -211,7 +211,7 @@
                 </nav>
                 <div class="search-container">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="serviceSearch" placeholder="Keresés..." onkeydown="handleSearch(event)">
+                    <input type="text" id="serviceSearch" placeholder="Keresés..." oninput="handleTyping()" onkeydown="handleEnter(event)">
                 </div>
                 <div class="menu-toggle" id="mobile-menu-btn"><span></span><span></span><span></span></div>
             </div>
@@ -395,39 +395,53 @@
 
         function toggleMenu() { menuBtn.classList.remove('change'); mobileMenu.classList.remove('active'); document.body.style.overflow = 'auto'; }
         
-        // EGYBEGYÚRT KERESŐ FÜGGVÉNY - NINCS TÖBB AKADÁS
-        function handleSearch(event) {
+        // 1. Csak a szűrés gépeléskor
+        function handleTyping() {
             const filter = document.getElementById('serviceSearch').value.toLowerCase();
             const items = document.querySelectorAll('.service-item');
-            
-            // 1. Szűrés (folyamatosan fut gépelés közben)
             items.forEach(item => {
                 const text = item.innerText.toLowerCase();
                 item.style.display = text.includes(filter) ? "flex" : "none";
             });
+        }
 
-            // 2. Ugrás (csak Enterre)
-            if (event.key === "Enter" && filter !== "") {
-                let foundMatch = null;
+        // 2. Csak az ugrás Enterre
+        function handleEnter(event) {
+            if (event.key === "Enter") {
+                const filter = document.getElementById('serviceSearch').value.toLowerCase();
+                if (filter === "") return;
+
+                const items = document.querySelectorAll('.service-item');
+                let target = null;
+
+                // Megkeressük az első látható találatot
                 for (let item of items) {
-                    if (item.style.display === "flex") {
-                        foundMatch = item;
+                    if (item.style.display !== "none") {
+                        target = item;
                         break;
                     }
                 }
 
-                if (foundMatch) {
-                    // Animáció reset
-                    foundMatch.classList.remove('search-match-highlight');
-                    void foundMatch.offsetWidth;
-                    foundMatch.classList.add('search-match-highlight');
+                if (target) {
+                    // Kicsit várunk, hogy a böngésző biztosan "beállítsa" az elemeket a szűrés után
+                    setTimeout(() => {
+                        const header = document.getElementById('main-header');
+                        const headerHeight = header.offsetHeight;
+                        
+                        // Kiszámoljuk a pontos pozíciót
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
 
-                    // Pozíció számítás
-                    const headerHeight = document.getElementById('main-header').offsetHeight;
-                    const rect = foundMatch.getBoundingClientRect();
-                    const targetY = rect.top + window.pageYOffset - headerHeight - 30;
+                        // Görgetés
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: "smooth"
+                        });
 
-                    window.scrollTo({ top: targetY, behavior: "smooth" });
+                        // Villanás effekt
+                        target.classList.remove('search-match-highlight');
+                        void target.offsetWidth; // Reflow
+                        target.classList.add('search-match-highlight');
+                    }, 50);
                 }
             }
         }
