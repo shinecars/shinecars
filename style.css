@@ -9,57 +9,106 @@
 }
 
 /* --- Alapok --- */
-html, body { scroll-behavior: smooth; overflow-x: hidden; width: 100%; background: var(--dark-grey); color: var(--white); margin: 0; padding: 0; }
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+body { background: var(--dark-grey); color: var(--white); overflow-x: hidden; line-height: 1.6; }
 
-/* --- HEADER FIX (Átlátszóból Feketébe) --- */
+/* --- DINAMIKUS FEJLÉC --- */
 header {
-    background: transparent;
-    position: fixed; 
-    width: 100%;
-    top: 0; z-index: 2000;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    height: var(--header-h);
-    display: flex;
-    align-items: center;
+    position: fixed; width: 100%; top: 0; z-index: 2000;
+    height: var(--header-h); display: flex; align-items: center;
+    background: transparent; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 header.scrolled {
-    background: rgba(0, 0, 0, 0.95) !important;
-    height: 75px !important;
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid var(--lime-glow);
+    background: rgba(0, 0, 0, 0.95); height: 75px;
+    border-bottom: 1px solid var(--lime-glow); backdrop-filter: blur(15px);
 }
 
 .top-nav { display: flex; justify-content: space-between; align-items: center; padding: 0 10%; width: 100%; }
-.logo-box img { height: 75px; transition: 0.4s ease; mix-blend-mode: screen; }
-header.scrolled .logo-box img { height: 45px !important; }
 
-/* --- GOMBOK DESIGN (Visszaállítva és felturbózva) --- */
-.btn {
-    display: inline-block;
-    padding: 18px 45px;
-    border-radius: 100px;
-    text-decoration: none;
-    font-weight: 900;
-    font-size: 14px;
-    text-transform: uppercase;
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    cursor: pointer;
-    border: none;
-    text-align: center;
+.logo-box img { 
+    height: 75px; 
+    transition: 0.4s; 
+    mix-blend-mode: screen; 
+}
+
+header.scrolled .logo-box img { height: 45px; }
+
+/* --- NAVIGÁCIÓ & KERESŐ --- */
+.nav-right-side { display: flex; align-items: center; gap: 25px; }
+
+.desktop-nav ul { display: flex; list-style: none; gap: 10px; }
+.desktop-nav a { 
+    color: #fff; text-decoration: none; font-weight: 700; 
+    text-transform: uppercase; font-size: 13px; padding: 10px 15px; transition: 0.3s; 
+}
+.desktop-nav a:hover { color: var(--lime); }
+
+.search-container { 
+    display: flex; align-items: center; background: rgba(255,255,255,0.08); 
+    padding: 8px 18px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); 
+}
+.search-container input { background: transparent; border: none; outline: none; color: #fff; width: 120px; font-size: 13px; }
+.search-container i { color: var(--lime); margin-right: 10px; }
+
+/* --- NEON HAMBURGER MENÜ --- */
+.menu-toggle { 
+    display: none; cursor: pointer; width: 35px; height: 25px; position: relative; z-index: 2100; 
+}
+
+.menu-toggle span { 
+    display: block; position: absolute; height: 3px; width: 100%; 
+    background: var(--lime); border-radius: 10px; transition: .3s ease-in-out; 
+    box-shadow: 0 0 10px var(--lime-glow); 
+}
+
+.menu-toggle span:nth-child(1) { top: 0; }
+.menu-toggle span:nth-child(2) { top: 11px; }
+.menu-toggle span:nth-child(3) { top: 22px; }
+
+/* X Animáció nyitáskor */
+.change span:nth-child(1) { top: 11px; transform: rotate(135deg); }
+.change span:nth-child(2) { opacity: 0; left: -60px; }
+.change span:nth-child(3) { top: 11px; transform: rotate(-135deg); }
+
+/* --- MOBIL NAV PANEL --- */
+.mobile-nav { 
+    position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; 
+    background: rgba(5,5,5,0.98); z-index: 1900; transition: 0.5s; 
+    display: flex; justify-content: center; align-items: center; 
+}
+.mobile-nav.active { right: 0; }
+.mobile-nav a { 
+    display: block; font-size: 32px; color: #fff; text-decoration: none; 
+    font-weight: 900; margin: 25px 0; text-transform: uppercase; letter-spacing: 2px; 
+}
+
+/* --- HERO SZEKCIÓ --- */
+.hero { 
+    height: 100vh; 
+    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('hero-car.jpg') center/cover no-repeat; 
+    display: flex; align-items: center; justify-content: center; 
+}
+.hero-btns { display: flex; gap: 20px; }
+
+/* --- NEON GOMBOK (VISSZAÁLLÍTVA) --- */
+.btn { 
+    display: inline-block; padding: 20px 45px; border-radius: 100px; 
+    text-decoration: none; font-weight: 900; text-transform: uppercase; 
+    font-size: 14px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    cursor: pointer; border: none; text-align: center;
 }
 
 .btn-lime { 
-    background-color: var(--lime) !important; 
+    background: var(--lime) !important; 
     color: #000 !important; 
     box-shadow: 0 0 25px var(--lime-glow); 
 }
 
 .btn-outline { 
-    border: 2px solid var(--white) !important; 
-    color: var(--white) !important; 
-    background: rgba(255, 255, 255, 0.05); 
+    border: 2px solid #fff !important; 
+    color: #fff !important; 
+    background: rgba(255,255,255,0.05); 
     backdrop-filter: blur(10px); 
 }
 
@@ -68,150 +117,119 @@ header.scrolled .logo-box img { height: 45px !important; }
     box-shadow: 0 15px 40px var(--lime-glow); 
 }
 
-/* --- RÓLUNK SZEKCIÓ (Bento Design Visszaállítása) --- */
-section { padding: 120px 10%; width: 100%; }
+/* --- RÓLUNK (BENTO GRID DESIGN) --- */
+section { padding: 120px 10%; }
 
-.about-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 40px;
-    align-items: center;
+.about-grid { 
+    display: grid; 
+    grid-template-columns: 1.2fr 0.8fr; 
+    gap: 40px; 
+    align-items: center; 
 }
 
-.about-card {
-    background: var(--card-bg);
-    padding: clamp(30px, 5vw, 60px);
-    border-radius: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
+.about-card { 
+    background: var(--card-bg); 
+    padding: 60px; 
+    border-radius: 40px; 
+    border: 1px solid rgba(255,255,255,0.05); 
+    backdrop-filter: blur(15px); 
 }
 
 .section-title { 
-    font-size: clamp(32px, 5vw, 50px); 
-    color: var(--lime); 
-    margin-bottom: 25px; 
-    text-transform: uppercase; 
-    font-weight: 900; 
-    letter-spacing: -1px; 
+    font-size: 45px; color: var(--lime); 
+    font-weight: 900; margin-bottom: 25px; text-transform: uppercase; 
 }
 
 .about-stats { 
-    display: grid; 
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 20px; 
-    margin-top: 40px; 
+    display: grid; grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; margin-top: 40px; 
 }
 
 .stat-number { 
-    color: var(--lime); 
-    font-size: clamp(30px, 4vw, 45px); 
-    font-weight: 900; 
-    display: block; 
-    text-shadow: 0 0 20px var(--lime-glow); 
+    color: var(--lime); font-size: 38px; font-weight: 900; 
+    display: block; text-shadow: 0 0 15px var(--lime-glow); 
 }
 
-.stat-label { 
-    font-size: 11px; 
-    text-transform: uppercase; 
-    color: #888; 
-    letter-spacing: 2px; 
+.stat-label { font-size: 11px; text-transform: uppercase; color: #888; letter-spacing: 2px; }
+
+.about-img-box { 
+    border-radius: 40px; overflow: hidden; 
+    border: 1px solid var(--lime); box-shadow: 0 0 40px rgba(118, 255, 3, 0.1); 
+}
+.about-img-box img { width: 100%; height: auto; display: block; transition: 0.5s; }
+
+/* --- SZOLGÁLTATÁSOK LISTÁJA --- */
+.category-wrap { margin-bottom: 60px; }
+.category-title { 
+    border-left: 6px solid var(--lime); padding-left: 20px; 
+    margin-bottom: 30px; text-transform: uppercase; font-weight: 900; font-size: 26px; 
 }
 
-.about-img-box {
-    border-radius: 40px;
-    overflow: hidden;
-    border: 1px solid var(--lime);
-    box-shadow: 0 0 60px rgba(118, 255, 3, 0.15);
+.service-item { 
+    display: flex; justify-content: space-between; align-items: center; 
+    padding: 30px; background: rgba(255,255,255,0.02); 
+    border-radius: 25px; border: 1px solid transparent; transition: 0.3s; 
+    margin-bottom: 15px;
 }
 
-.about-img-box img { 
-    width: 100%; 
-    height: auto; 
-    transition: 1.2s cubic-bezier(0.2, 1, 0.3, 1); 
+.service-item:hover { 
+    border-color: var(--lime); transform: translateX(15px); 
+    background: rgba(255,255,255,0.05); 
 }
 
-/* --- DESIGNOS HAMBURGER (Neon & Animált) --- */
-.menu-toggle {
-    display: none;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    position: relative;
-    z-index: 2200;
+.service-price { 
+    color: var(--lime); font-weight: 900; font-size: 24px; 
+    text-shadow: 0 0 15px var(--lime-glow); 
 }
 
-.menu-toggle span {
-    display: block;
-    position: absolute;
-    height: 3px;
-    width: 100%;
-    background: var(--lime);
-    border-radius: 9px;
-    opacity: 1;
-    left: 0;
-    transition: .25s ease-in-out;
-    box-shadow: 0 0 10px var(--lime-glow);
-}
-
-.menu-toggle span:nth-child(1) { top: 8px; }
-.menu-toggle span:nth-child(2) { top: 18px; }
-.menu-toggle span:nth-child(3) { top: 28px; }
-
-.change span:nth-child(1) { top: 18px; transform: rotate(135deg); }
-.change span:nth-child(2) { opacity: 0; left: -60px; }
-.change span:nth-child(3) { top: 18px; transform: rotate(-135deg); }
-
-/* --- KAPCSOLAT & FORM DESIGN --- */
+/* --- KAPCSOLAT & ÜZENETKÜLDŐ GOMB --- */
 .contact-grid { display: flex; gap: 40px; align-items: stretch; }
-.contact-grid > * { flex: 1; }
 
-.contact-form input, .contact-form textarea {
-    width: 100%;
-    padding: 18px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #fff;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    outline: none;
-    font-size: 16px;
-    transition: 0.3s;
+.map-wrapper { 
+    flex: 1.2; border-radius: 40px; overflow: hidden; border: 1px solid #222; 
+}
+.map-wrapper iframe { 
+    width: 100%; height: 100%; min-height: 500px; 
+    filter: grayscale(1) invert(0.92); border: none; 
 }
 
-.contact-form input:focus, .contact-form textarea:focus { 
-    border-color: var(--lime); 
-    background: rgba(118, 255, 3, 0.05); 
+.contact-form input, .contact-form textarea { 
+    width: 100%; padding: 20px; background: rgba(255,255,255,0.05); 
+    border: 1px solid rgba(255,255,255,0.1); color: #fff; 
+    border-radius: 15px; margin-bottom: 20px; outline: none; transition: 0.3s; 
 }
 
-/* --- FOOTER & NEON --- */
-.social-icons a i { font-size: 30px; transition: 0.3s; }
-.fa-facebook { color: #1877F2; }
-.fa-instagram { color: #E4405F; }
+.contact-form input:focus { border-color: var(--lime); }
+
+/* Az üzenetküldő gomb most már gombként néz ki */
+.submit-btn { 
+    width: 100%; margin-top: 15px; 
+}
+
+/* --- FOOTER --- */
+footer { padding: 60px 10%; text-align: center; background: #000; border-top: 1px solid #111; }
+.social-icons { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; }
+.social-icons a { font-size: 30px; transition: 0.3s; }
+
+.fa-facebook { color: #1877F2; } 
+.fa-instagram { color: #E4405F; } 
 .fa-tiktok { color: #fff; }
-.social-icons a:hover { filter: drop-shadow(0 0 15px var(--lime)); transform: translateY(-5px); }
 
 .copy-text { 
-    color: var(--lime); 
-    font-weight: 700; 
-    font-size: 12px; 
-    letter-spacing: 2px; 
-    text-shadow: 0 0 10px var(--lime-glow); 
+    color: var(--lime); font-weight: 700; font-size: 12px; 
+    letter-spacing: 3px; text-shadow: 0 0 10px var(--lime-glow); 
 }
 
-/* --- MOBIL NÉZET --- */
+/* --- MOBIL NÉZET FIXEK --- */
 @media (max-width: 992px) {
     header { height: 80px; background: rgba(0,0,0,0.9); }
-    .menu-toggle { display: block; }
     .desktop-nav { display: none; }
+    .menu-toggle { display: block; }
     
-    .about-grid, .contact-grid { flex-direction: column; display: block; }
-    .about-img-box { margin-top: 30px; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; display: flex; flex-direction: column; }
+    .hero-btns { flex-direction: column; width: 100%; padding: 0 10%; gap: 15px; }
+    .btn { width: 100%; }
     
-    .hero-btns { 
-        flex-direction: column !important; 
-        padding: 0 20px; 
-        gap: 15px;
-    }
-    
-    .btn { width: 100% !important; }
+    .service-item { flex-direction: column; text-align: center; gap: 15px; }
+    section { padding: 80px 5%; }
 }
