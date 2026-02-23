@@ -456,26 +456,40 @@ footer {
     .desktop-nav { display: none; }
     .menu-toggle { display: block; }
 
-    /* Hero Kép Fix Mobilon */
+/* --- HERO FIX MOBILON --- */
+@media (max-width: 992px) {
     .hero {
-        height: 80vh; /* Mobilon jobb a 80vh, hogy ne legyen túl nyújtott a kép */
-        background-attachment: scroll; /* iOS fix: megállítja a kép ugrálását és túlzott zoomját */
-        background-position: center center; /* Középre zárjuk az autót */
-        background-size: cover;
+        /* A fix magasság helyett az arányokra bízunk mindent */
+        height: auto; 
+        min-height: 300px; /* Hogy ne legyen túl kicsi sem */
+        aspect-ratio: 4 / 3; /* Ha a képed inkább kocka alakúbb */
+        /* VAGY: aspect-ratio: 16 / 9; ha nagyon széles a fotó */
+        
+        background-attachment: scroll; /* Mobilos ugrálás ellen */
+        background-size: cover; /* Kitölti a területet */
+        background-position: center center;
+        
+        display: flex;
+        align-items: flex-end; /* A gombokat az aljára toljuk, hogy látszódjon a kocsi */
+        padding-bottom: 30px;
     }
-    
-    .about-grid, .contact-grid { 
-        grid-template-columns: 1fr; 
+
+    .hero-content {
+        width: 100%;
     }
-    
-    .hero-btns { 
-        flex-direction: column; 
-        width: 100%; 
-        padding: 0 20px;
-        gap: 15px;
+
+    .hero-btns {
+        flex-direction: row; /* Mobilon is egymás mellett maradhatnak, ha rövidek */
+        gap: 10px;
+        padding: 0 15px;
     }
-    
-    .btn { width: 100%; padding: 15px 20px; }
+
+    .btn {
+        padding: 12px 15px;
+        font-size: 12px;
+        flex: 1; /* Egyforma széles gombok */
+    }
+}
     
     .service-item { 
         flex-direction: column; 
