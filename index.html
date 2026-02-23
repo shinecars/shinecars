@@ -818,32 +818,64 @@
         <div id="dynamic-projects" class="projects-container"></div>
     </section>
 
-    <section id="contact">
-        <div class="contact-grid">
-            <div class="map-wrapper" data-aos="zoom-in">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2717.047796186452!2d18.020691175749853!3d47.078526324295204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4769912ab83bc16b%3A0xbed595ddbaf55fb4!2sShine%20Cars!5e0!3m2!1shu!2shu!4v1771859710292!5m2!1shu!2shu"></iframe>
-            </div>
-            <div class="about-card" data-aos="fade-left">
-                <h2 class="section-title">Kapcsolat</h2>
-                <form class="contact-form">
-                    <div class="form-group">
-                        <input type="text" placeholder="Teljes neved" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="E-mail címed" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" placeholder="Telefonszámod" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea rows="5" placeholder="Milyen szolgáltatás érdekli?"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-lime submit-btn">Üzenet küldése</button>
-                </form>
-            </div>
+   <section id="contact">
+    <div class="contact-grid">
+        <div class="map-wrapper">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2731.8324!2d18.0000!3d47.0000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDfCsDAwJzAwLjAiTiAxOMKwMDAnMDAuMCJF!5e0!3m2!1shu!2shu!4v123456789" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
         </div>
-    </section>
 
+        <div class="about-card">
+            <h2 class="section-title">Kapcsolat</h2>
+
+            <div class="contact-info-cards">
+                <div class="info-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <h4>Telefon</h4>
+                    <p>+36 30 123 4567</p>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <h4>Email</h4>
+                    <p>info@shinecars.hu</p>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h4>Cím</h4>
+                    <p>8220 Balatonfűzfő, Ipari út</p>
+                </div>
+
+                <div class="info-item opening-hours">
+                    <i class="fas fa-clock"></i>
+                    <h4>Nyitvatartás</h4>
+                    <ul>
+                        <li><span>H-P:</span> 08:00 - 17:00</li>
+                        <li><span>Szo:</span> 09:00 - 13:00</li>
+                        <li><span>Vas:</span> Zárva</li>
+                    </ul>
+                </div>
+            </div>
+
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Neved" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="E-mail címed" required>
+                </div>
+                <div class="form-group">
+                    <textarea rows="4" placeholder="Miben segíthetünk?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-lime submit-btn">Üzenet küldése</button>
+            </form>
+        </div>
+    </div>
+</section>
     <footer>
         <div class="social-icons">
             <a href="https://www.facebook.com/profile.php?id=100063511902918" target="_blank"><i class="fab fa-facebook-f"></i></a>
