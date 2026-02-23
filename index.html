@@ -8,129 +8,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <style>
-        :root {
-            --lime: #76ff03;
-            --lime-glow: rgba(118, 255, 3, 0.4);
-            --dark-grey: #0a0a0a;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --white: #ffffff;
-            --header-h: 100px;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        body { background: var(--dark-grey); color: var(--white); overflow-x: hidden; line-height: 1.6; }
-
-        /* --- HEADER & NAV --- */
-        header {
-            position: fixed; width: 100%; top: 0; z-index: 2000;
-            height: var(--header-h); display: flex; align-items: center;
-            background: transparent; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        header.scrolled {
-            background: rgba(0, 0, 0, 0.95); height: 75px;
-            border-bottom: 1px solid var(--lime-glow); backdrop-filter: blur(15px);
-        }
-        .top-nav { display: flex; justify-content: space-between; align-items: center; padding: 0 10%; width: 100%; }
-        .logo-box img { height: 75px; transition: 0.4s; mix-blend-mode: screen; }
-        header.scrolled .logo-box img { height: 45px; }
-
-        .nav-right-side { display: flex; align-items: center; gap: 25px; }
-        .desktop-nav ul { display: flex; list-style: none; gap: 10px; }
-        .desktop-nav a { color: #fff; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 13px; padding: 10px 15px; transition: 0.3s; }
-        .desktop-nav a:hover { color: var(--lime); }
-
-        /* --- KERESŐ --- */
-        .search-container { display: flex; align-items: center; background: rgba(255,255,255,0.08); padding: 8px 18px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); }
-        .search-container input { background: transparent; border: none; outline: none; color: #fff; width: 120px; font-size: 13px; }
-        .search-container i { color: var(--lime); margin-right: 10px; }
-
-        /* --- HAMBURGER --- */
-        .menu-toggle { display: none; cursor: pointer; width: 35px; height: 25px; position: relative; z-index: 2100; }
-        .menu-toggle span { display: block; position: absolute; height: 3px; width: 100%; background: var(--lime); border-radius: 10px; transition: .3s ease-in-out; box-shadow: 0 0 10px var(--lime-glow); }
-        .menu-toggle span:nth-child(1) { top: 0; }
-        .menu-toggle span:nth-child(2) { top: 11px; }
-        .menu-toggle span:nth-child(3) { top: 22px; }
-        .change span:nth-child(1) { top: 11px; transform: rotate(135deg); }
-        .change span:nth-child(2) { opacity: 0; left: -60px; }
-        .change span:nth-child(3) { top: 11px; transform: rotate(-135deg); }
-
-        /* --- MOBIL PANEL --- */
-        .mobile-nav { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: rgba(5,5,5,0.98); z-index: 1900; transition: 0.5s; display: flex; justify-content: center; align-items: center; }
-        .mobile-nav.active { right: 0; }
-        .mobile-nav-inner { text-align: center; }
-        .mobile-nav a { display: block; font-size: 32px; color: #fff; text-decoration: none; font-weight: 900; margin: 25px 0; text-transform: uppercase; letter-spacing: 2px; }
-
-        /* --- HERO --- */
-        .hero { height: 100vh; background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('hero-car.jpg') center/cover no-repeat; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .hero-btns { display: flex; gap: 20px; }
-
-        /* --- GOMBOK --- */
-        .btn { display: inline-block; padding: 20px 45px; border-radius: 100px; text-decoration: none; font-weight: 900; text-transform: uppercase; font-size: 14px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; border: none; }
-        .btn-lime { background: var(--lime); color: #000 !important; box-shadow: 0 0 25px var(--lime-glow); }
-        .btn-outline { border: 2px solid #fff; color: #fff; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); }
-        .btn:hover { transform: translateY(-8px) scale(1.05); box-shadow: 0 15px 40px var(--lime-glow); }
-        .submit-btn { width: 100%; margin-top: 15px; }
-
-        /* --- RÓLUNK BENTO GRID --- */
-        section { padding: 120px 10%; }
-        .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
-        .about-card { background: var(--card-bg); padding: 60px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(15px); }
-        .section-title { font-size: 45px; color: var(--lime); font-weight: 900; margin-bottom: 25px; text-transform: uppercase; }
-        .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
-        .stat-number { color: var(--lime); font-size: 38px; font-weight: 900; display: block; text-shadow: 0 0 15px var(--lime-glow); }
-        .stat-label { font-size: 11px; text-transform: uppercase; color: #888; letter-spacing: 2px; }
-        
-        .about-img-box { border-radius: 40px; overflow: hidden; border: 1px solid var(--lime); box-shadow: 0 0 40px rgba(118, 255, 3, 0.1); }
-        .about-img-box img { width: 100%; height: auto; display: block; transition: 0.5s; }
-
-        /* --- SZOLGÁLTATÁSOK --- */
-        .category-wrap { margin-bottom: 60px; }
-        .category-title { border-left: 6px solid var(--lime); padding-left: 20px; margin-bottom: 30px; text-transform: uppercase; font-weight: 900; font-size: 26px; }
-        .service-list { display: grid; gap: 15px; }
-        .service-item { display: flex; justify-content: space-between; align-items: center; padding: 30px; background: rgba(255,255,255,0.02); border-radius: 25px; border: 1px solid transparent; transition: 0.3s; }
-        .service-item:hover { border-color: var(--lime); transform: translateX(15px); background: rgba(255,255,255,0.05); }
-        .service-info h3 { font-size: 22px; margin-bottom: 5px; }
-        .service-info p { color: #888; font-size: 14px; }
-        .service-price { color: var(--lime); font-weight: 900; font-size: 24px; text-shadow: 0 0 15px var(--lime-glow); }
-
-        /* --- KAPCSOLAT --- */
-        .contact-grid { display: flex; gap: 40px; align-items: stretch; }
-        .map-wrapper { flex: 1.2; border-radius: 40px; overflow: hidden; border: 1px solid #222; }
-        .map-wrapper iframe { width: 100%; height: 100%; min-height: 500px; filter: grayscale(1) invert(0.92); border: none; }
-        .contact-form input, .contact-form textarea { width: 100%; padding: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 15px; margin-bottom: 20px; outline: none; transition: 0.3s; font-size: 16px; }
-        .contact-form input:focus { border-color: var(--lime); background: rgba(118,255,3,0.05); }
-
-        /* --- FOOTER --- */
-        footer { padding: 60px 10%; text-align: center; background: #000; border-top: 1px solid #111; }
-        .social-icons { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; }
-        .social-icons a { font-size: 30px; transition: 0.3s; }
-        .fa-facebook { color: #1877F2; } .fa-instagram { color: #E4405F; } .fa-tiktok { color: #fff; }
-        .social-icons a:hover { transform: translateY(-5px); filter: drop-shadow(0 0 10px var(--lime)); }
-        .copy-text { color: var(--lime); font-weight: 700; font-size: 12px; letter-spacing: 3px; text-shadow: 0 0 10px var(--lime-glow); text-transform: uppercase; }
-
-        /* --- MOBIL NÉZET --- */
-        @media (max-width: 992px) {
-            header { height: 80px; background: rgba(0,0,0,0.9); }
-            .desktop-nav { display: none; }
-            .menu-toggle { display: block; }
-            .logo-box img { height: 45px; }
-            .about-grid, .contact-grid { grid-template-columns: 1fr; display: flex; flex-direction: column; }
-            .hero-btns { flex-direction: column; width: 100%; padding: 0 10%; }
-            .btn { width: 100%; }
-            .service-item { flex-direction: column; text-align: center; gap: 15px; }
-            section { padding: 80px 5%; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header id="main-header">
         <div class="top-nav">
-            <div class="logo-box"><img src="logo.png" alt="ShineCars Logo"></div>
+            <div class="logo-box">
+                <img src="logo.png" alt="ShineCars Logo">
+            </div>
+            
             <div class="nav-right-side">
-                <div class="search-container"><i class="fas fa-search"></i><input type="text" id="serviceSearch" placeholder="Keresés..." onkeyup="filterServices()"></div>
                 <nav class="desktop-nav">
                     <ul>
                         <li><a href="#about">Rólunk</a></li>
@@ -138,7 +26,17 @@
                         <li><a href="#contact">Kapcsolat</a></li>
                     </ul>
                 </nav>
-                <div class="menu-toggle" id="mobile-menu-btn"><span></span><span></span><span></span></div>
+
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="serviceSearch" placeholder="Keresés..." onkeyup="filterServices()">
+                </div>
+
+                <div class="menu-toggle" id="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </header>
@@ -151,10 +49,12 @@
         </div>
     </div>
 
-    <section class="hero">
-        <div class="hero-btns">
-            <a href="#services" class="btn btn-lime">Szolgáltatások</a>
-            <a href="#contact" class="btn btn-outline">Időpontfoglalás</a>
+    <section class="hero" data-aos="fade-in">
+        <div class="hero-content">
+            <div class="hero-btns">
+                <a href="#services" class="btn btn-lime" data-aos="fade-up" data-aos-delay="200">Szolgáltatások</a>
+                <a href="#contact" class="btn btn-outline" data-aos="fade-up" data-aos-delay="400">Időpontfoglalás</a>
+            </div>
         </div>
     </section>
 
@@ -162,82 +62,74 @@
         <div class="about-grid">
             <div class="about-card" data-aos="fade-right">
                 <h2 class="section-title">Rólunk</h2>
-                <p>A ShineCars stúdiójában minden autó egy egyedi projekt. Prémium alapanyagokkal, precíz technikával és tíz év tapasztalatával varázsoljuk újjá gépjárművét Balatonfűzfőn. Szenvedélyünk a tökéletesség.</p>
+                <p>A ShineCars stúdiójában minden autó egy egyedi projekt. Prémium alapanyagokkal, precíz technikával és tíz év tapasztalatával varázsoljuk újjá gépjárművét Balatonfűzfőn.</p>
                 <div class="about-stats">
-                    <div class="stat-box"><span class="stat-number">10+</span><span class="stat-label">Év tapasztalat</span></div>
-                    <div class="stat-box"><span class="stat-number">2500+</span><span class="stat-label">Kezelt autó</span></div>
-                    <div class="stat-box"><span class="stat-number">100%</span><span class="stat-label">Minőség</span></div>
+                    <div class="stat-box">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">Év tapasztalat</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">2500+</span>
+                        <span class="stat-label">Kezelt autó</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Minőség</span>
+                    </div>
                 </div>
             </div>
-            <div class="about-img-box" data-aos="fade-left"><img src="logo.png" alt="ShineCars"></div>
+            <div class="about-img-box" data-aos="fade-left">
+                <img src="logo.png" alt="ShineCars Detailing Studio">
+            </div>
         </div>
     </section>
 
     <section id="services">
-        <h2 class="section-title" style="text-align: center;">Szolgáltatásaink</h2>
+        <h2 class="section-title" style="text-align: center; margin-bottom: 60px;" data-aos="fade-down">Szolgáltatásaink</h2>
 
-        <div class="category-wrap">
-            <h3 class="category-title">Külső Kozmetika & Védelem</h3>
+        <div class="service-category" data-aos="fade-up">
+            <div class="cat-title">Külső Kozmetika & Védelem</div>
             <div class="service-list">
-                <div class="service-item">
-                    <div class="service-info"><h3>Prémium Kézi Mosás</h3><p>Kétvödrös technika, ph semleges sampon, felni és gumiápolás.</p></div>
+                <div class="service-item" data-aos="fade-left">
+                    <div class="service-name">
+                        <h3>Prémium Kézi Mosás</h3>
+                        <p>Kétvödrös technika, ph semleges sampon, felni tisztítás és gumiápolás.</p>
+                    </div>
                     <div class="service-price">12.000 Ft-tól</div>
                 </div>
-                <div class="service-item">
-                    <div class="service-info"><h3>Kémiai Tisztítás</h3><p>Kátrány és szállórozsda eltávolítás gyurmázással.</p></div>
-                    <div class="service-price">18.000 Ft-tól</div>
-                </div>
-                <div class="service-item">
-                    <div class="service-info"><h3>Kerámia Bevonat</h3><p>9H keménységű, tartós üvegbevonat 2-5 év garanciával.</p></div>
+                <div class="service-item" data-aos="fade-left" data-aos-delay="100">
+                    <div class="service-name">
+                        <h3>Kerámia Bevonat</h3>
+                        <p>9H keménységű tartós üvegbevonat a fényezés védelméért és a mély fényért.</p>
+                    </div>
                     <div class="service-price">120.000 Ft-tól</div>
                 </div>
-                <div class="service-item">
-                    <div class="service-info"><h3>Viaszos Védelem</h3><p>Prémium carnauba wax a mély fényért és vízlepergetésért.</p></div>
+                <div class="service-item" data-aos="fade-left" data-aos-delay="200">
+                    <div class="service-name">
+                        <h3>Viaszos védelem</h3>
+                        <p>Prémium carnauba wax vagy szintetikus sealant a szezonális védelemért.</p>
+                    </div>
                     <div class="service-price">35.000 Ft-tól</div>
                 </div>
             </div>
         </div>
 
-        <div class="category-wrap">
-            <h3 class="category-title">Belső Detailing</h3>
+        <div class="service-category" data-aos="fade-up">
+            <div class="cat-title">Belső Detailing</div>
             <div class="service-list">
-                <div class="service-item">
-                    <div class="service-info"><h3>Mélyvizes Kárpittisztítás</h3><p>Ülések, padlószőnyeg professzionális mélytisztítása.</p></div>
+                <div class="service-item" data-aos="fade-right">
+                    <div class="service-name">
+                        <h3>Mélyvizes Kárpittisztítás</h3>
+                        <p>Ülések, ajtókárpitok és padlószőnyeg mélytisztítása, folteltávolítás.</p>
+                    </div>
                     <div class="service-price">25.000 Ft-tól</div>
                 </div>
-                <div class="service-item">
-                    <div class="service-info"><h3>Bőrápolási Csomag</h3><p>Bőrtisztítás és prémium kondicionálás UV védelemmel.</p></div>
+                <div class="service-item" data-aos="fade-right" data-aos-delay="100">
+                    <div class="service-name">
+                        <h3>Bőrápolás</h3>
+                        <p>Tisztítás és prémium kondicionálás a bőr rugalmasságának megőrzéséért.</p>
+                    </div>
                     <div class="service-price">20.000 Ft-tól</div>
-                </div>
-                <div class="service-item">
-                    <div class="service-info"><h3>Ózonos Fertőtlenítés</h3><p>Szagok és baktériumok semlegesítése vegyszermentesen.</p></div>
-                    <div class="service-price">8.000 Ft</div>
-                </div>
-                <div class="service-item">
-                    <div class="service-info"><h3>Műanyagápolás</h3><p>Belső műanyagok mélytisztítása és antisztatikus bevonat.</p></div>
-                    <div class="service-price">10.000 Ft-tól</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="category-wrap">
-            <h3 class="category-title">Korrekció & Polírozás</h3>
-            <div class="service-list">
-                <div class="service-item">
-                    <div class="service-info"><h3>Egy lépcsős fényesítés</h3><p>Apró karcok eltávolítása, a lakk eredeti fényének visszaállítása.</p></div>
-                    <div class="service-price">45.000 Ft-tól</div>
-                </div>
-                <div class="service-item">
-                    <div class="service-info"><h3>Több lépcsős korrekció</h3><p>Mélykarcok eltávolítása, tükörfényes felület létrehozása.</p></div>
-                    <div class="service-price">85.000 Ft-tól</div>
-                </div>
-                <div class="service-item">
-                    <div class="service-info"><h3>Lámpa Felújítás</h3><p>Mattult fényszórók polírozása és kerámia védelme.</p></div>
-                    <div class="service-price">10.000 Ft / db</div>
-                </div>
-                <div class="service-item">
-                    <div class="service-info"><h3>Motortér Kozmetika</h3><p>Olajsár eltávolítása és professzionális műanyag konzerválás.</p></div>
-                    <div class="service-price">15.000 Ft-tól</div>
                 </div>
             </div>
         </div>
@@ -245,14 +137,24 @@
 
     <section id="contact">
         <div class="contact-grid">
-            <div class="map-wrapper" data-aos="fade-right"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2732.123456789!2d18.0!3d47.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDfCsDAwJzAwLjAiTiAxOMKwMDAnMDAuMCJF!5e0!3m2!1shu!2shu!4v1234567890"></iframe></div>
+            <div class="map-wrapper" data-aos="zoom-in">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2732.123456789!2d18.0!3d47.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDfCsDAwJzAwLjAiTiAxOMKwMDAnMDAuMCJF!5e0!3m2!1shu!2shu!4v1234567890"></iframe>
+            </div>
             <div class="about-card" data-aos="fade-left">
                 <h2 class="section-title">Kapcsolat</h2>
                 <form class="contact-form">
-                    <input type="text" placeholder="Teljes neved" required>
-                    <input type="email" placeholder="E-mail címed" required>
-                    <input type="tel" placeholder="Telefonszámod" required>
-                    <textarea rows="5" placeholder="Milyen szolgáltatás érdekli?" required></textarea>
+                    <div class="form-group">
+                        <input type="text" placeholder="Teljes neved" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="E-mail címed" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Telefonszámod" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="5" placeholder="Milyen szolgáltatás érdekli?"></textarea>
+                    </div>
                     <button type="submit" class="btn btn-lime submit-btn">Üzenet küldése</button>
                 </form>
             </div>
@@ -270,26 +172,55 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        // AOS Inicializálás
+        AOS.init({ 
+            duration: 800, 
+            once: true,
+            offset: 100
+        });
+
+        // Görgetéskor fejléc stílusváltás
         window.addEventListener('scroll', function() {
             const header = document.getElementById('main-header');
-            if (window.scrollY > 50) header.classList.add('scrolled');
-            else header.classList.remove('scrolled');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         });
+
+        // Mobil menü logika
         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        menuBtn.addEventListener('click', toggleMenu);
-        function toggleMenu() {
+
+        menuBtn.addEventListener('click', () => {
             menuBtn.classList.toggle('change');
             mobileMenu.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        function toggleMenu() {
+            menuBtn.classList.remove('change');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
+
+        // Kereső funkció
         function filterServices() {
             let filter = document.getElementById('serviceSearch').value.toLowerCase();
             let items = document.querySelectorAll('.service-item');
+            
             items.forEach(item => {
                 let text = item.innerText.toLowerCase();
-                item.style.display = text.includes(filter) ? "flex" : "none";
+                if (text.includes(filter)) {
+                    item.style.display = "flex";
+                } else {
+                    item.style.display = "none";
+                }
             });
         }
     </script>
