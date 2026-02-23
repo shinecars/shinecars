@@ -200,7 +200,7 @@
                 </nav>
                 <div class="search-container">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="serviceSearch" placeholder="Keresés..." onkeyup="filterServices()">
+                    <input type="text" id="serviceSearch" placeholder="Keresés..." onkeyup="filterServices()" onkeydown="handleSearchKey(event)">
                 </div>
                 <div class="menu-toggle" id="mobile-menu-btn"><span></span><span></span><span></span></div>
             </div>
@@ -387,7 +387,6 @@
         function filterServices() {
             let filter = document.getElementById('serviceSearch').value.toLowerCase();
             document.querySelectorAll('.service-item').forEach(item => {
-                // Keresés a címben (h3) és a leírásban (p) is
                 let h3Text = item.querySelector('h3').innerText.toLowerCase();
                 let pText = item.querySelector('p') ? item.querySelector('p').innerText.toLowerCase() : "";
                 if (h3Text.includes(filter) || pText.includes(filter)) {
@@ -396,6 +395,35 @@
                     item.style.display = "none";
                 }
             });
+        }
+
+        function handleSearchKey(event) {
+            if (event.key === "Enter") {
+                const filter = document.getElementById('serviceSearch').value.toLowerCase();
+                if (filter === "") return;
+                
+                const items = document.querySelectorAll('.service-item');
+                let firstMatch = null;
+
+                items.forEach(item => {
+                    const h3Text = item.querySelector('h3').innerText.toLowerCase();
+                    const pText = item.querySelector('p') ? item.querySelector('p').innerText.toLowerCase() : "";
+                    if (h3Text.includes(filter) || pText.includes(filter)) {
+                        if (!firstMatch) firstMatch = item;
+                    }
+                });
+
+                if (firstMatch) {
+                    const offset = 120; // Hely a fix fejlécnek
+                    const elementPosition = firstMatch.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            }
         }
 
         window.addEventListener('load', loadProjects);
