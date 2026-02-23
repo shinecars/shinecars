@@ -9,6 +9,84 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            width: 100%;
+        }
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden;
+        }
+        .project-info { margin-bottom: 20px; padding-left: 10px; }
+        .project-info h3 { color: var(--lime); text-transform: uppercase; margin-bottom: 5px; }
+        .comparison-slider {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: ew-resize;
+            user-select: none;
+        }
+        .image-container { position: relative; width: 100%; height: 100%; }
+        .img-after { display: block; width: 100%; height: 100%; object-fit: cover; }
+        .img-before-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            border-right: 3px solid var(--lime);
+        }
+        .img-before {
+            display: block;
+            height: 100%;
+            object-fit: cover;
+        }
+        .slider-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            appearance: none;
+            z-index: 10;
+            outline: none;
+            margin: 0;
+        }
+        .slider-input::-webkit-slider-thumb { appearance: none; width: 40px; height: 100%; cursor: ew-resize; }
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: var(--lime);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 11;
+            box-shadow: 0 0 15px var(--lime-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .slider-button i { color: #000; font-size: 14px; }
+        
+        @media (max-width: 992px) {
+            .hero { height: auto; min-height: 350px; aspect-ratio: 4/3; }
+            .projects-container { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
@@ -23,7 +101,7 @@
                     <ul>
                         <li><a href="#about">Rólunk</a></li>
                         <li><a href="#services">Szolgáltatások</a></li>
-                        <li><a href="#contact">Kapcsolat</a></li>
+                        <li><a href="#gallery">Projektek</a></li> <li><a href="#contact">Kapcsolat</a></li>
                     </ul>
                 </nav>
 
@@ -45,7 +123,7 @@
         <div class="mobile-nav-inner">
             <a href="#about" onclick="toggleMenu()">Rólunk</a>
             <a href="#services" onclick="toggleMenu()">Szolgáltatások</a>
-            <a href="#contact" onclick="toggleMenu()">Kapcsolat</a>
+            <a href="#gallery" onclick="toggleMenu()">Projektek</a> <a href="#contact" onclick="toggleMenu()">Kapcsolat</a>
         </div>
     </div>
 
@@ -163,6 +241,47 @@
         </div>
     </section>
 
+    <section id="gallery">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 60px;" data-aos="fade-down">Legutóbbi Projektjeink</h2>
+        <div class="projects-container">
+            
+            <div class="project-card" data-aos="zoom-in">
+                <div class="project-info">
+                    <h3>Karceltávolítás & Polír</h3>
+                    <p>BMW M4 - 3 lépcsős korrekció</p>
+                </div>
+                <div class="comparison-slider">
+                    <div class="image-container">
+                        <img class="img-after" src="gallery/p1_after.jpg" alt="Utána">
+                        <div class="img-before-wrapper">
+                            <img class="img-before" src="gallery/p1_before.jpg" alt="Előtte">
+                        </div>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" class="slider-input" oninput="initSliders()">
+                    <div class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="project-info">
+                    <h3>Belső Mélytisztítás</h3>
+                    <p>Audi A6 - Kárpit & Bőrápolás</p>
+                </div>
+                <div class="comparison-slider">
+                    <div class="image-container">
+                        <img class="img-after" src="gallery/p2_after.jpg" alt="Utána">
+                        <div class="img-before-wrapper">
+                            <img class="img-before" src="gallery/p2_before.jpg" alt="Előtte">
+                        </div>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" class="slider-input" oninput="initSliders()">
+                    <div class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <section id="contact">
         <div class="contact-grid">
             <div class="map-wrapper" data-aos="zoom-in">
@@ -176,6 +295,9 @@
                     </div>
                     <div class="form-group">
                         <input type="email" placeholder="E-mail címed" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Telefonszámod" required>
                     </div>
                     <div class="form-group">
                         <input type="tel" placeholder="Telefonszámod" required>
@@ -231,6 +353,28 @@
                 item.style.display = text.includes(filter) ? "flex" : "none";
             });
         }
+
+        /* ÚJ: Előtte-Utána Csúszka Logika */
+        function initSliders() {
+            const sliders = document.querySelectorAll('.comparison-slider');
+            sliders.forEach(slider => {
+                const input = slider.querySelector('.slider-input');
+                const beforeWrapper = slider.querySelector('.img-before-wrapper');
+                const beforeImg = slider.querySelector('.img-before');
+                const btn = slider.querySelector('.slider-button');
+                
+                // Beállítjuk a kép szélességét a szülőhöz, hogy ne nyúljon el
+                beforeImg.style.width = slider.offsetWidth + 'px';
+                
+                input.addEventListener('input', (e) => {
+                    let val = e.target.value;
+                    beforeWrapper.style.width = val + '%';
+                    btn.style.left = val + '%';
+                });
+            });
+        }
+        window.addEventListener('resize', initSliders);
+        initSliders();
     </script>
 </body>
 </html>
