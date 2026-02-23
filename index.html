@@ -58,15 +58,15 @@
         .search-container input { background: transparent; border: none; outline: none; color: #fff; width: 120px; font-size: 12px; }
         .search-container i { color: var(--lime); margin-right: 8px; }
 
-        /* Keresési találat kiemelése (VILLANÁS) */
+        /* Keresési találat kiemelése */
         @keyframes highlightFlash {
-            0% { background: var(--lime-glow); border-color: var(--lime); box-shadow: 0 0 20px var(--lime-glow); }
-            100% { background: transparent; border-color: transparent; box-shadow: none; }
+            0% { background: var(--lime-glow); border-color: var(--lime); }
+            100% { background: transparent; border-color: transparent; }
         }
         .search-match-highlight {
-            animation: highlightFlash 2s ease-out;
-            border: 1px solid var(--lime) !important;
-            scroll-margin-top: 130px; /* Biztonsági tartalék a böngészőnek */
+            animation: highlightFlash 2s ease-out forwards;
+            border: 2px solid var(--lime) !important;
+            border-radius: 20px;
         }
 
         /* Hamburger */
@@ -211,7 +211,7 @@
                 </nav>
                 <div class="search-container">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="serviceSearch" placeholder="Keresés..." onkeyup="filterServices()" onkeydown="handleSearchKey(event)">
+                    <input type="text" id="serviceSearch" placeholder="Keresés..." onkeydown="handleSearch(event)">
                 </div>
                 <div class="menu-toggle" id="mobile-menu-btn"><span></span><span></span><span></span></div>
             </div>
@@ -395,55 +395,39 @@
 
         function toggleMenu() { menuBtn.classList.remove('change'); mobileMenu.classList.remove('active'); document.body.style.overflow = 'auto'; }
         
-        function filterServices() {
-            let filter = document.getElementById('serviceSearch').value.toLowerCase();
-            document.querySelectorAll('.service-item').forEach(item => {
-                let h3Text = item.querySelector('h3').innerText.toLowerCase();
-                let pText = item.querySelector('p') ? item.querySelector('p').innerText.toLowerCase() : "";
-                if (h3Text.includes(filter) || pText.includes(filter)) {
-                    item.style.display = "flex";
-                } else {
-                    item.style.display = "none";
-                }
+        // EGYBEGYÚRT KERESŐ FÜGGVÉNY - NINCS TÖBB AKADÁS
+        function handleSearch(event) {
+            const filter = document.getElementById('serviceSearch').value.toLowerCase();
+            const items = document.querySelectorAll('.service-item');
+            
+            // 1. Szűrés (folyamatosan fut gépelés közben)
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                item.style.display = text.includes(filter) ? "flex" : "none";
             });
-        }
 
-        function handleSearchKey(event) {
-            if (event.key === "Enter") {
-                const filter = document.getElementById('serviceSearch').value.toLowerCase();
-                if (!filter) return;
-                
-                const items = document.querySelectorAll('.service-item');
+            // 2. Ugrás (csak Enterre)
+            if (event.key === "Enter" && filter !== "") {
                 let foundMatch = null;
-
-                items.forEach(item => {
-                    const h3Text = item.querySelector('h3').innerText.toLowerCase();
-                    const pText = item.querySelector('p') ? item.querySelector('p').innerText.toLowerCase() : "";
-                    
-                    if (h3Text.includes(filter) || pText.includes(filter)) {
-                        item.style.display = "flex";
-                        if (!foundMatch) foundMatch = item;
+                for (let item of items) {
+                    if (item.style.display === "flex") {
+                        foundMatch = item;
+                        break;
                     }
-                });
+                }
 
                 if (foundMatch) {
-                    // Animáció reset és indítás
+                    // Animáció reset
                     foundMatch.classList.remove('search-match-highlight');
-                    void foundMatch.offsetWidth; 
+                    void foundMatch.offsetWidth;
                     foundMatch.classList.add('search-match-highlight');
 
-                    // DINAMIKUS FEJLÉC MAGASSÁG SZÁMÍTÁSA
-                    const header = document.getElementById('main-header');
-                    const headerHeight = header.offsetHeight;
-                    
-                    // Pontos pozíció kiszámítása (elem helye + aktuális görgetés - fejléc - 20px extra hely)
-                    const elementPosition = foundMatch.getBoundingClientRect().top + window.pageYOffset;
-                    const offsetPosition = elementPosition - headerHeight - 20;
+                    // Pozíció számítás
+                    const headerHeight = document.getElementById('main-header').offsetHeight;
+                    const rect = foundMatch.getBoundingClientRect();
+                    const targetY = rect.top + window.pageYOffset - headerHeight - 30;
 
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
-                    });
+                    window.scrollTo({ top: targetY, behavior: "smooth" });
                 }
             }
         }
