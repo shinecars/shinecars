@@ -257,7 +257,7 @@ section { padding: 120px 10%; width: 100%; }
     nav { display: none !important; }
 
     .hero {
-        padding-top: 250px !important; /* Mobilon még lejjebb toljuk a tartalom elejét */
+        padding-top: 400px !important; /* Mobilon még lejjebb toljuk a tartalom elejét */
         background-attachment: scroll !important;
     }
 
