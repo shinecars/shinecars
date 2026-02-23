@@ -111,6 +111,20 @@
                     </div>
                     <div class="service-price">35.000 Ft-tól</div>
                 </div>
+                <div class="service-item" data-aos="fade-left" data-aos-delay="300">
+                    <div class="service-name">
+                        <h3>Fényesítő polírozás</h3>
+                        <p>Egy lépcsős korrekció, ami visszaadja az autó eredeti fényét és eltávolítja a mikrokarcolatokat.</p>
+                    </div>
+                    <div class="service-price">45.000 Ft-tól</div>
+                </div>
+                <div class="service-item" data-aos="fade-left" data-aos-delay="400">
+                    <div class="service-name">
+                        <h3>Lámpa Felújítás</h3>
+                        <p>Bemattult fényszórók polírozása és UV védő bevonattal való ellátása.</p>
+                    </div>
+                    <div class="service-price">10.000 Ft / db</div>
+                </div>
             </div>
         </div>
 
@@ -120,16 +134,30 @@
                 <div class="service-item" data-aos="fade-right">
                     <div class="service-name">
                         <h3>Mélyvizes Kárpittisztítás</h3>
-                        <p>Ülések, ajtókárpitok és padlószőnyeg mélytisztítása, folteltávolítás.</p>
+                        <p>Ülések, ajtókárpitok és padlószőnyeg mélytisztítása professzionális géppel, folteltávolítás.</p>
                     </div>
                     <div class="service-price">25.000 Ft-tól</div>
                 </div>
                 <div class="service-item" data-aos="fade-right" data-aos-delay="100">
                     <div class="service-name">
-                        <h3>Bőrápolás</h3>
-                        <p>Tisztítás és prémium kondicionálás a bőr rugalmasságának megőrzéséért.</p>
+                        <h3>Bőrápolás & Tisztítás</h3>
+                        <p>Bőrfelületek kíméletes tisztítása és prémium kondicionálása a repedezés ellen.</p>
                     </div>
                     <div class="service-price">20.000 Ft-tól</div>
+                </div>
+                <div class="service-item" data-aos="fade-right" data-aos-delay="200">
+                    <div class="service-name">
+                        <h3>Ózonos Fertőtlenítés</h3>
+                        <p>Kellemetlen szagok, baktériumok és gombák teljes körű semlegesítése az utastérben.</p>
+                    </div>
+                    <div class="service-price">8.000 Ft</div>
+                </div>
+                <div class="service-item" data-aos="fade-right" data-aos-delay="300">
+                    <div class="service-name">
+                        <h3>Műanyagápolás</h3>
+                        <p>Belső műanyag elemek portalanítása és UV védelmet biztosító, selyemfényű ápolása.</p>
+                    </div>
+                    <div class="service-price">10.000 Ft-tól</div>
                 </div>
             </div>
         </div>
@@ -163,44 +191,30 @@
 
     <footer>
         <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
         </div>
         <p class="copy-text">© 2024 SHINECARS DETAILING | BALATONFŰZFŐ</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // AOS Inicializálás
-        AOS.init({ 
-            duration: 800, 
-            once: true,
-            offset: 100
-        });
+        AOS.init({ duration: 800, once: true, offset: 100 });
 
-        // Görgetéskor fejléc stílusváltás
         window.addEventListener('scroll', function() {
             const header = document.getElementById('main-header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
         });
 
-        // Mobil menü logika
         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
 
         menuBtn.addEventListener('click', () => {
             menuBtn.classList.toggle('change');
             mobileMenu.classList.toggle('active');
-            if (mobileMenu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'auto';
-            }
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
         });
 
         function toggleMenu() {
@@ -209,18 +223,12 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Kereső funkció
         function filterServices() {
             let filter = document.getElementById('serviceSearch').value.toLowerCase();
             let items = document.querySelectorAll('.service-item');
-            
             items.forEach(item => {
                 let text = item.innerText.toLowerCase();
-                if (text.includes(filter)) {
-                    item.style.display = "flex";
-                } else {
-                    item.style.display = "none";
-                }
+                item.style.display = text.includes(filter) ? "flex" : "none";
             });
         }
     </script>
